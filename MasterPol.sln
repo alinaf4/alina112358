@@ -1,25 +1,551 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.8.34511.84
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterPol", "MasterPol\MasterPol.csproj", "{8CCF6436-2D87-4071-B506-8096AA228050}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8CCF6436-2D87-4071-B506-8096AA228050}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8CCF6436-2D87-4071-B506-8096AA228050}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8CCF6436-2D87-4071-B506-8096AA228050}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8CCF6436-2D87-4071-B506-8096AA228050}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {D0562A36-2083-4595-ADD6-21303C275B24}
-	EndGlobalSection
-EndGlobal
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace MasterPol
+{
+    /// <summary>
+    /// Логика взаимодействия для MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+            Classes.Manager.MainFrame = MainFrame;
+            Classes.Manager.MainFrame.Navigate(new Pages.ListViewPage());
+        }
+
+    }
+}
+
+
+
+
+<Application x:Class="MasterPol.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MasterPol"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI"></Setter>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="Segoe UI"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Width" Value="150"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="Background" Value="#67BA80"></Setter>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Segoe UI"></Setter>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontFamily" Value="Segoe UI"></Setter>
+            <Setter Property="Width" Value="250"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Segoe UI"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="Width" Value="250"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+        </Style>
+    </Application.Resources>
+</Application>
+
+cs пустой
+
+<Page x:Class="MasterPol.Pages.AddEditPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MasterPol.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="650" d:DesignWidth="1000"
+      Title="AddEditPage"
+      Background="White">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" HorizontalAlignment="Center"
+              VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="300"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="300"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="IdLabel" Content="Id:"
+                   Grid.Row="0" Grid.Column="0"></Label>
+            <Label Content="Наименование:" Grid.Row="1" Grid.Column="0"></Label>
+            <Label Content="Тип партнера:" Grid.Row="2" Grid.Column="0"></Label>
+            <Label Content="Рейтинг" Grid.Row="3" Grid.Column="0"></Label>
+
+            <Label Content="Адрес:" Grid.Row="0" Grid.Column="2"></Label>
+            <Label Content="ФИО директора:" Grid.Row="1" Grid.Column="2"></Label>
+            <Label Content="Телефон" Grid.Row="2" Grid.Column="2"></Label>
+            <Label Content="Email:" Grid.Row="3" Grid.Column="2"></Label>
+
+            <TextBox x:Name="IdTextBox" Grid.Row="0" Grid.Column="1"></TextBox>
+            <TextBox x:Name="NamePartnerTextBox" Grid.Row="1" Grid.Column="1"></TextBox>
+            <ComboBox x:Name="TypeComboBox" Grid.Row="2" Grid.Column="1"
+                      DisplayMemberPath="TypePartner1"></ComboBox>
+            <TextBox x:Name="RatingTextBox" Grid.Row="3" Grid.Column="1"></TextBox>
+
+            <TextBox x:Name="AddressTextBox" Grid.Row="0" Grid.Column="3"></TextBox>
+            <TextBox x:Name="DirectorNameTextBox" Grid.Row="1" Grid.Column="3"></TextBox>
+            <TextBox x:Name="PhoneTextBox" Grid.Row="2" Grid.Column="3"></TextBox>
+            <TextBox x:Name="EmailTextBox" Grid.Row="3" Grid.Column="3"></TextBox>
+
+        </Grid>
+
+        <Button x:Name="BackButton" Grid.Row="1"
+                Content="Назад" HorizontalAlignment="Left"
+                Margin="10"
+                Click="BackButton_Click"></Button>
+        <Button x:Name="SaveButton" Grid.Row="1"
+                Content="Назад" HorizontalAlignment="Left"
+                Margin="10"
+                Click="SaveButton_Click"></Button>
+    </Grid>
+</Page>
+
+
+AddEditPage.cs
+namespace MasterPol.Pages
+{
+    public partial class AddEditPage : Page
+    {
+        private PartnersImport _currentpartner;
+        private bool FlagAddorEdit;
+
+        public AddEditPage(PartnersImport partners)
+        {
+            InitializeComponent();
+            _currentpartner = partners;
+            FlagAddorEdit = _currentpartner == null;
+            Init();
+        }
+
+        public void Init()
+        {
+            IdTextBox.Visibility = Visibility.Hidden;
+            IdLabel.Visibility = Visibility.Hidden;
+            TypeComboBox.ItemsSource = Data.MasterPolEntities.GetContext().TypePartner.ToList();
+
+            if (_currentpartner != null)
+            {
+                NamePartnerTextBox.Text = _currentpartner.Partners.NamePartner;
+                RatingTextBox.Text = _currentpartner.Rating.ToString();
+                AddressTextBox.Text = _currentpartner.IdAddress.ToString();
+                DirectorNameTextBox.Text = _currentpartner.Director.DirectorName;
+                PhoneTextBox.Text = _currentpartner.Phone;
+                EmailTextBox.Text = _currentpartner.Email;
+                IdTextBox.Text = _currentpartner.IdPartnersImport.ToString();
+                TypeComboBox.SelectedItem = Data.MasterPolEntities.GetContext().TypePartner
+                    .FirstOrDefault(d => d.IdTypePartner == _currentpartner.IdTypePartner);
+            }
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Classes.Manager.MainFrame.Navigate(new Pages.ListViewPage());
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                StringBuilder errors = new StringBuilder();
+                if (string.IsNullOrEmpty(NamePartnerTextBox.Text))
+                    errors.AppendLine("Заполните наименование!");
+                if (TypeComboBox.SelectedItem == null)
+                    errors.AppendLine("Выберите тип партнера!");
+                if (string.IsNullOrEmpty(RatingTextBox.Text))
+                    errors.AppendLine("Заполните рейтинг!");
+                if (string.IsNullOrEmpty(AddressTextBox.Text))
+                    errors.AppendLine("Заполните адрес!");
+                if (string.IsNullOrEmpty(DirectorNameTextBox.Text))
+                    errors.AppendLine("Заполните ФИО!");
+                if (string.IsNullOrEmpty(PhoneTextBox.Text))
+                    errors.AppendLine("Заполните номер телефона!");
+                if (string.IsNullOrEmpty(EmailTextBox.Text))
+                    errors.AppendLine("Заполните Email!");
+
+                if (errors.Length > 0)
+                {
+                    MessageBox.Show(errors.ToString(), "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                var selectedCategory = TypeComboBox.SelectedItem as Data.TypePartner;
+                if (selectedCategory == null)
+                {
+                    MessageBox.Show("Выберите тип партнера!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                var context = Data.MasterPolEntities.GetContext();
+
+                if (!FlagAddorEdit)
+                {
+                    _currentpartner.IdTypePartner = selectedCategory.IdTypePartner;
+                    _currentpartner.Rating = Convert.ToInt32(RatingTextBox.Text);
+                    _currentpartner.Phone = PhoneTextBox.Text;
+                    _currentpartner.Email = EmailTextBox.Text;
+                    _currentpartner.IdAddress = Convert.ToInt32(AddressTextBox.Text);
+
+                    var searchDirector = context.Director
+                        .FirstOrDefault(item => item.IdDerector == _currentpartner.IdPartnersImport);
+                    if (searchDirector != null)
+                    {
+                        searchDirector.DirectorName = DirectorNameTextBox.Text;
+                    }
+
+                    var searchNamePartner = context.Partners
+                        .FirstOrDefault(item => item.IdNamePartner == _currentpartner.IdNamePartner);
+                    if (searchNamePartner != null)
+                    {
+                        searchNamePartner.NamePartner = NamePartnerTextBox.Text;
+                    }
+
+                    MessageBox.Show("Успешно изменено!", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    int rating;
+                    if (!int.TryParse(RatingTextBox.Text, out rating) || rating < 0)
+                    {
+                        MessageBox.Show("Рейтинг должен быть целым неотрицательным числом.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
+                    var newPartner = new Data.PartnersImport
+                    {
+                        IdTypePartner = selectedCategory.IdTypePartner,
+                        Rating = rating,
+                        IdAddress = Convert.ToInt32(AddressTextBox.Text),
+                        Phone = PhoneTextBox.Text,
+                        Email = EmailTextBox.Text
+                    };
+
+                    var searchDirector = context.Director
+                        .FirstOrDefault(item => item.DirectorName == DirectorNameTextBox.Text);
+                    if (searchDirector != null)
+                    {
+                        newPartner.IdDerector = searchDirector.IdDerector;
+                    }
+                    else
+                    {
+                        var director = new Data.Director
+                        {
+                            DirectorName = DirectorNameTextBox.Text
+                        };
+                        context.Director.Add(director);
+                        context.SaveChanges();
+                        newPartner.IdDerector = director.IdDerector;
+                    }
+
+                    var searchNamePartner = context.Partners
+                        .FirstOrDefault(item => item.NamePartner == NamePartnerTextBox.Text);
+                    if (searchNamePartner != null)
+                    {
+                        newPartner.IdNamePartner = searchNamePartner.IdNamePartner;
+                    }
+                    else
+                    {
+                        var namePartner = new Data.Partners
+                        {
+                            NamePartner = NamePartnerTextBox.Text
+                        };
+                        context.Partners.Add(namePartner);
+                        context.SaveChanges();
+                        newPartner.IdNamePartner = namePartner.IdNamePartner;
+                    }
+
+                    context.PartnersImport.Add(newPartner);
+                    MessageBox.Show("Успешно добавлено!", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка: {ex.Message}", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+    }
+}
+
+
+<Page x:Class="MasterPol.Pages.HistoryPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MasterPol.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="650" d:DesignWidth="1000"
+      Title="HistoryPage"
+      Background="White">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+        </Grid.RowDefinitions>
+        <DataGrid x:Name="HistoryDataGrid" Grid.Row="0"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Наименование"
+                    Binding="{Binding Products.NameProducts}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Количество продукции"
+                    Binding="{Binding QuantityProducts}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата продажи"
+                    Binding="{Binding DateOfSale, StringFormat='{}{0:yyyy-MM-dd}'}"></DataGridTextColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button x:Name="BackButton" Grid.Row="1"
+        Content="Назад" HorizontalAlignment="Center"
+        Click="BackButton_Click"></Button>
+    </Grid>
+</Page>
+
+
+cs:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Markup;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace MasterPol.Pages
+{
+    /// <summary>
+    /// Логика взаимодействия для HistoryPage.xaml
+    /// </summary>
+    public partial class HistoryPage : Page
+    {
+        private readonly Data.PartnersImport _selectedPartner;
+
+        public HistoryPage(Data.PartnersImport selectedPartner)
+        {
+            InitializeComponent();
+            _selectedPartner = selectedPartner;
+
+            LoadHistory();
+        }
+
+        private void LoadHistory()
+        {
+            var history = Data.MasterPolEntities.GetContext().PartnerProductsImport
+                .Where(p => p.IdNamePartner == _selectedPartner.IdNamePartner)
+                .Select(p => new
+                {
+                    Products = p.Products,
+                    QuantityProducts = p.QuantityProducts,
+                    DataOfSale = p.DateOfSale
+                })
+                .ToList();
+
+            HistoryDataGrid.ItemsSource = history;
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Classes.Manager.MainFrame.Navigate(new Pages.ListViewPage());
+        }
+    }
+}
+
+
+<Page x:Class="MasterPol.Pages.ListViewPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MasterPol.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="650" d:DesignWidth="1000"
+      Title="ListViewPage"
+      Background="White">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <ListView x:Name="MasterListView"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center"
+                  Grid.Row="0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="350"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock>
+                                <Run Text="{Binding PartnersImport.TypePartner.TypePartner}"/>
+                                <Run Text="|"/>
+                                <Run Text="{Binding PartnersImport.Partners.NamePartner}"/>
+                            </TextBlock>
+                            <TextBlock Text="{Binding PartnersImport.Director.DirectorName, StringFormat={}Директор: {0}}"></TextBlock>
+                            <TextBlock Text="{Binding PartnersImport.Phone, StringFormat={}Номер телефона: {0}}"></TextBlock>
+                            <TextBlock Text="{Binding PartnersImport.Rating, StringFormat={}Рейтинг: {0}}"></TextBlock>
+                        </StackPanel>
+
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{Binding Discount, StringFormat={}Скидка: {0}%}"></TextBlock>
+                        <Button x:Name="EditButton" Grid.Column="2"
+                                Content="Редактировать"
+                                Click="EditButton_Click"></Button>
+                        <Button x:Name="HistoryButton" Grid.Column="3"
+                                Content="История реализации" Margin="10"
+                                Click="HistoryButton_Click"></Button>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button x:Name="ASddButton" Content="Добавить"
+                Click="ASddButton_Click"
+                HorizontalAlignment="Center"
+                Grid.Row="1"></Button>
+    </Grid>
+</Page>
+
+cs:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Markup;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace MasterPol.Pages
+{
+    /// <summary>
+    /// Логика взаимодействия для ListViewPage.xaml
+    /// </summary>
+    public partial class ListViewPage : Page
+    {
+        public ListViewPage()
+        {
+            InitializeComponent();
+            LoadData();
+        }
+
+        private void LoadData()
+        {
+            var partners = Data.MasterPolEntities.GetContext().PartnersImport.ToList();
+
+            var parterDiscounts = (from partner in partners
+                                   join product in Data.MasterPolEntities.GetContext().PartnerProductsImport
+                                   on partner.IdPartnersImport equals product.IdNamePartner
+                                   group product by partner into g
+                                   select new
+                                   {
+                                       Partner = g.Key,
+                                       Discount = CalculateDiscount(g.Sum(partnerDiscounts => partnerDiscounts.QuantityProducts))
+                                       // Discount = CalculateDiscount(g.Sum(partnerDiscounts => partnerDiscounts.QuantityProducts))
+                                   }).ToList();
+            MasterListView.ItemsSource = parterDiscounts;
+        }
+
+        private int CalculateDiscount(int totalCount)
+        {
+            if (totalCount < 10000) return 0;
+            if (totalCount >= 10000 && totalCount < 50000) return 5;
+            if (totalCount >= 50000 && totalCount < 300000) return 10;
+            return 15;
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e )
+        {
+           Classes.Manager.MainFrame.Navigate(new Pages.AddEditPage(null));
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e )
+        {
+            Classes.Manager.MainFrame.Navigate(new Pages.AddEditPage(null));
+        }
+
+        private void HistoryButton_Click( object sender, RoutedEventArgs e )
+        {
+                Classes.Manager.MainFrame.Navigate(new HistoryPage(null));
+        }
+
+        private void ASddButton_Click(object sender, RoutedEventArgs e)
+        {
+            Classes.Manager.MainFrame.Navigate(new Pages.AddEditPage(null));
+        }
+    }
+}
+
+
+
+
+
